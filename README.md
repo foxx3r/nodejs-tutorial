@@ -107,7 +107,7 @@ Agora vamos criar o diretório aonde ficará realmente a parte prática:
 # Conceitos
 
 **API**
-i
+
 Uma API é um aplicação sem interface web, apenas serve informações. Vamos imaginar um servidor de um aplicativo móvel, WhatsApp por exemplo, você precisaria de uma interface web? No caso, você apenas precisaria mandar dados e receber de acordo com o que você mandou
 
 **MVC**
