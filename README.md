@@ -140,7 +140,7 @@ já iremos explicar o que são req e res, mas simplesmente o next é o que autor
 
 As rotas são parte importante da nossa aplicação, quando acessamos http://127.0.0.1:8080 estamos secretamente acessando a rota "/", vamos ser mais claros.
 
-Qual a página na qual você faz login no Facebook? https://facebook.com/lpgin e "/login" é a rota para fazer login.
+Qual a página na qual você faz login no Facebook? https://facebook.com/login e "/login" é a rota para fazer login.
 
 **GET e POST**
 
