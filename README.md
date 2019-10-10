@@ -59,7 +59,7 @@ O Yarn é uma alternativa muito mais rápida, segura, confiável e na qual você
 
 No arquivo server.js:
 
-'''js
+```js
 const http = require("http")
 const app = require("./api/middleware/app")
 require("dotenv").config()
@@ -71,7 +71,7 @@ const HOSTNAME = process.env.HOSTNAME
 server.listen(PORT, HOSTNAME, () => {
     console.log(`servidor rodando na URL http://${HOSTNAME}:${PORT}`)
 })
-'''
+```
 
 Em suas respectivas linhas:
 
@@ -89,10 +89,10 @@ Em suas respectivas linhas:
 
 **agora vamos abrir o arquivo .env**
 
-'''js
+```js
 PORT=8080
 HOSTNAME="127.0.0.1"
-'''
+```
 
 agora configuramos o nosso servidor para escutar na porta 8080 e em localhost (na nossa própria máquina, dependendo da sua conexāo, na sua rede também). Você pode alterar a porta no .env para outra porta (de preferência uma maior que 1024)
 
@@ -127,12 +127,12 @@ a view é o que o cliente vê e interage (páginas por exemplo), o control è o 
 
 Um middleware é um "agente" que fica escutando em todas as requisições do seu servidor, vamos dar um exemplo com o Express:
 
-'''js
+```js
 // isso é um middleware no express
 app.use( (req, res, next) => {
     console.log("uma nova requisição")
 })
-'''
+```
 
 já iremos explicar o que são req e res, mas simplesmente o next é o que autoriza a requisição a passar. Se formos rodar esta aplicação, a cada requisição o middleware vai mostrar no nosso terminal "uma nova requisição" mas não irá responder nem retornar nada ao cliente, por quê? Não colocamos o next() no final para ele deixar a requisição passar, simplesmente travava alí.
 
@@ -174,10 +174,10 @@ O JWT utiliza hashs para verificar autenticidade dos tokens e passam informaçõ
 
 no diretório src/api/routes crie o arquivo api_1.0.0.js e escreva isso dentro dele:
 
-'''js
+```js
 const express = require("express")
 const app = express()
-'''
+```
 
 Nota: É uma boa prática versionar a API, vamos supor que seu cliente não atualizou o aplicativo, você adicionou e tirou um monte de coisas, então imediatamente o aplicativo para de funcionar.
 
@@ -187,25 +187,25 @@ Na linha `const app...` declaramos que app é igual a express(), utilizamos isso
 
 Agora vamos acrescentar isso ao mesmo arquivo:
 
-'''js
+```js
 const helmet = require("helmet")
 app.use(helmet())
-'''
+```
 
 Este módulo é um módulo que reúne outras 12 bibliotecas para desativar/ativar cabeçalhos HTTP na sua aplicação e deixa-la segura. Após isso, adicionamos este módulo ao express (ele é um middleware, percebeu?)
 
 Vamos adicionar agora suporte para que possamos receber dados de formulários:
 
-'''js
+```js
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
-'''
+```
 
 Na primeira linha especificamos que queremos habilitar o recebimento de dados via URL, logo passamos um JSON de configuração no qual diz que não queremos aceitar outros tipos de dados (arquivos por exemplo). Logo abaixo, dizemos que aceitaremos dados JSON
 
 Agora vamos criar 2 rotas GET:
 
-'''js
+```js
 app.get("/", (req, res, next) => {
     res.send("<h1>Ola mundo</h1>")
 })
@@ -215,7 +215,7 @@ app.get("/json", (req, res, next) => {
         hello: "World"
     })
 })
-'''
+```
 
 na primeira linha criamos a rota / na qual passamos uma função logo após que recebe três argumentos: req, res, next. Bem... next você já sabe para quê que serve, o req se trata de tudo requisitado e res tudo o que será enviado. O método send do res nos envia uma string, que pode ser também interpretada como um HTML se você acessar pelo navegador.
 
@@ -223,30 +223,30 @@ logo abaixo criamos a rota /json na qual manda um status HTTP 200 (você pode ve
 
 agora vamos criar uma rota POST que irá retornar o nosso email e senha recebidos por um formulário.
 
-'''js
+```js
 app.post("/teste", (req, res, next) => {
     res.send("seu email: " + req.body.email + " \nsua senha: " + req.body.password)
 })
-'''
+```
 
 Lembra que configuramos o `app.use(express.urlencoded...)`? Então, ele habilita o req.body no qual o outro atributo é o nome do campo do formulário recebido. Um fato interessante é que se você tentar acessar o /teste pelo seu navegador, ele vai dar um erro "cannot GET /teste"
 
 Agora vamos exportar o app:
 
-'''js
+```js
 module.exports = app
-'''
+```
 
 Agora no arquivo src/api/middleware no arquivo app.js:
 
-'''js
+```js
 const app = require("express")()
 const api100 = require("../routes/api_1.0.0")
 
 app.use("/api/1.0.0", api100)
 
 module.exports = app
-'''
+```
 
 Na segunda linha importamos o arquivo das rotas, na linha abaixo configuramos eles para usarmos no nosso aplicativo com o prefixo /api/1.0.0, ou seja, o /teste será agora acessado na rota /api/1.0.0. Depois exportamos o app.
 
