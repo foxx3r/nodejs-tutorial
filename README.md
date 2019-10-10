@@ -152,13 +152,12 @@ O método GET é o mais comum, seu navegador o faz todo dia quando você acessa 
 
 Os arquivos estáticos ficam no diretório /public, ao configurarmos ele podemos acessar seu conteúdo facilmente. Por exemplo, as imagens podem ser acessadas na rota /images/nome_foto.png ou podemos configurar arquivos JavaScript e CSS externos sem guardar eles no mesmo local que estão os HTMLs. Exemplo de arquivos que guardariamos no public:
 
-`images
-
+```
+images
 css
-
 javascript
-
-favicon`
+favicon
+```
 
 apesar de imagens serem guardadas em sua maioria no banco de dados NoSQL ou em CDN (servidor que entrega conteúdo em cache ao cliente) podem ser guardadas dentro do public já que não precisamos nos preocupar com coisas mais complexas e perfeitas.
 
