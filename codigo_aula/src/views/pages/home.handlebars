@@ -1,0 +1,9 @@
+{{#if posts}}
+    <div class="card">
+    {{#each posts}}
+        <div class="card-body">{{conteudo}}</div>
+    {{/each}}
+    </div>
+{{else}}
+    <h1>Nao existem posts ainda.</h1>
+{{/if}}

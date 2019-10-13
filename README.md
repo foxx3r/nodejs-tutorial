@@ -114,12 +114,11 @@ Uma API é um aplicação sem interface web, apenas serve informações. Vamos i
 
 O conceito MVC não é um conceito que usaremos aqui, mas ele tem um marco importante na história do back-end. Simplesmente uma aplicação MVC se organiza na seguinte estrutura de pastas:
 
-`model
-
+```
+model
 view
-
 control
-`
+```
 
 a view é o que o cliente vê e interage (páginas por exemplo), o control è o que seria a parte do nosso server.js e o model è a parte do banco de dados.
 
@@ -265,7 +264,7 @@ Primeiramente, bora testar a rota /, entre no seu navegador e digite http://127.
 
 Agora vamos usar o HTTPie para testar a nossa rota /teste enviando os seguintes formulários:
 
-`$ http POST http://127.0.0.1/api/1.0.0/teste email=joao@gmail.com password=123456`
+`$ http POST http://127.0.0.1:8080/api/1.0.0/teste email=joao@gmail.com password=123456`
 
 # Criando um site
 
@@ -286,7 +285,7 @@ Após isso, adicione o seguinte no users.js:
 ```js
 const express = require("express")
 const app = express()
-const handlebars = require("handlebars")
+const handlebars = require("express-handlebars")
 ```
 
 O Handlebars é um pacote JavaScript que cria templatesnHTML, ele é bom para servir conteúdo dinâmico vindo do servidor. Por exemplo, em um site como o Facebook aonde postagens são atualizadas constantememte.
@@ -300,6 +299,13 @@ app.set("view engine", "handlebars")
 ```
 
 nas duas linhas dizemos para o express que a view engine será o handlebars, e passamos como configuração que o layout principal terá o nome "main", você já irá entender seu uso.
+
+Vamos agora habilitar o recebimento de formulários:
+
+```js
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
+```
 
 Agora vamos criar umas rotas simples:
 
@@ -481,7 +487,7 @@ Bem... isto pode demorar um pouco, tive problemas com ele demorar 40 minutos par
 Agora no mesmo diretório, vamos criar o arquivo Post.js:
 
 ```js
-const db = require("./connection-db")
+const db = require("./connection_db")
 
 const posts = db.sequelize.define("usersPost", {
   nome: {
